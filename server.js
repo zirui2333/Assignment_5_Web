@@ -49,7 +49,11 @@ const app = express();
 const cors = require("cors");
 const path = require('path');
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ['https://zirui2333.github.io', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 console.log("App listen at port 5000");
 
