@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
     // const link = "https://zirui2333.github.io/Assignment_5_Web";
-    const link = "http://localhost:3000";
+    const link = "";
     const [task, setTask] = useState("");
     const [completeness, setCompleteness] = useState("");
     const [itemIdToDelete, setItemIdToDelete] = useState("");

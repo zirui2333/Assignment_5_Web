@@ -47,6 +47,7 @@ User.createIndexes();
 const express = require('express');
 const app = express();
 const cors = require("cors");
+const path = require('path');
 app.use(express.json());
 app.use(cors());
 
@@ -114,12 +115,17 @@ app.put('/update/:id', async (req, res) => {
     }
 });
 
+// Serve static files from the React build folder
+app.use(express.static(path.join(__dirname, 'build')));
 
+// Handle React routing, return all requests to React app
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-
-// Start server
-app.listen(5000, () => {
-    console.log("Server running on port 5000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
 
 
