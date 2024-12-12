@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-    const link = "http://localhost:5000";
+    // const link = "https://zirui2333.github.io/Assignment_5_Web";
+    const link = "http://localhost:3000";
     const [task, setTask] = useState("");
     const [completeness, setCompleteness] = useState("");
     const [itemIdToDelete, setItemIdToDelete] = useState("");
