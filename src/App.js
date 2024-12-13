@@ -11,7 +11,17 @@ function App() {
     const [editingId, setEditingId] = useState(null);
     const [editedTask, setEditedTask] = useState("");
     const [editedDescription, setEditedDescription] = useState("");
+    const [copySuccess, setCopySuccess] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
+    const handleCopyClick = () => {
+        navigator.clipboard.writeText("https://assignment-5-backend-485d.onrender.com")
+            .then(() => {
+                setCopySuccess(true);
+                setTimeout(() => setCopySuccess(false), 2000);
+                setShowModal(true);
+            });
+    };
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -155,7 +165,22 @@ function App() {
                             <button type="submit">Submit</button>
                         </form>
 
+
+                        <div className="api-container">
+                            <h2>API</h2>
+                            <a href="https://assignment-5-backend-485d.onrender.com/items">
+                                get all items
+                            </a>
+                            <br />
+                            <br />
+
+                            <button className="copy-btn" onClick={handleCopyClick}>
+                                Click to Copy Backend API URL {copySuccess && "✓"}
+                            </button>
+                        </div>
                     </div>
+
+
 
                     {/* Right Side - Tasks List */}
                     <div className="tasks-container">
@@ -223,6 +248,34 @@ function App() {
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+                        <p style={{ fontWeight: 'bold', color: 'green' }}> API URL is copied to clipboard *</p>
+                        <br />
+                        <p> Backend Github Repo Reference: {`   `}
+                            <a href="https://github.com/zirui2333/assignment_5_backend/blob/main/backend/index.js" target="_blank">
+                                Github
+                            </a>
+                        </p>
+                        <p>For create new item, use below format in Postman {'->'} body {'->'} raw</p>
+                        <br />
+                        <pre>
+                            {`{
+    "task": "Your task name",
+    "description": "Your description",
+    "completeness": "unfinished"
+}`}
+                        </pre>
+                        <br />
+                        <p> POST:   {`{{base_url}}`}/register</p>
+                        <p> Edit:   {`{{base_url}}`}/update/{`{id}`}</p>
+                        <p> Delete:   {`{{base_url}}`}/delete/{`{id}`}</p>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
